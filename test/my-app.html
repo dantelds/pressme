@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>my-view1</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../src/my-app.html">
+  </head>
+  <body>
+    <test-fixture id="BasicView">
+      <template>
+        <my-app></my-app>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('my-app tests', function() {
+        
+        test('Should have a background', function() {
+          var myView = fixture('BasicView');
+          var content = myView.shadowRoot.querySelector('#pressme');
+          assert.isNotNull(content.style.backgroundColor);
+        });
+
+        test('Should show color value', function() {
+          var myView = fixture('BasicView');
+          var content = myView.shadowRoot.querySelector('.colorValue');
+          assert.isNotNull(content.textContent);
+        });
+        
+      });
+    </script>
+  </body>
+</html>

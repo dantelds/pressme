@@ -1,0 +1,92 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+
+
+<dom-module id="my-app">
+  <template>
+    <style>
+      .noselect {
+        -webkit-touch-callout: none; 
+          -webkit-user-select: none; 
+          -khtml-user-select: none; 
+            -moz-user-select: none; 
+              -ms-user-select: none; 
+                  user-select: none; 
+      }
+      .textShadow{
+        text-shadow: 4px 4px 2px rgba(150, 150, 150, 1);
+        color: #fff;
+      }
+      h1{
+        font-size: 7em;   
+        cursor: pointer;     
+      }
+      h2{
+        font-size: 1.5em; 
+      }
+      #pressme{
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .table{
+        display: table;
+        width: 100%;
+        height: 100%;
+      }
+      .cell{
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+      }
+    </style>
+    <div id="pressme"  >
+      <div class="table">
+          <div class="cell textShadow">
+              <h1 class="noselect" on-click="setRandomColor">Press Me</h1>
+              <h2>
+                Current color
+                <br/>
+                <span class="colorValue">[[color]]</span>
+              </h2>
+            </div>
+      </div>
+        
+    </div>
+  </template>
+
+  <script>
+    class MyApp extends Polymer.Element {
+      static get is() { return 'my-app'; }
+
+      static get properties() {
+        return {
+          color: String,
+        };
+      }
+   
+      ready(){
+        super.ready();
+        this.setRandomColor();      
+      }
+      getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+      setRandomColor() {
+        this.color = this.getRandomColor();
+        this.$.pressme.style.backgroundColor = this.color;
+      }      
+    }
+
+    window.customElements.define(MyApp.is, MyApp);
+  </script>
+</dom-module>
